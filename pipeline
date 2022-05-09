@@ -1,0 +1,74 @@
+Jenkins :Pipeline as a code 
+--------------------------- 
+
+pipeline {
+    agent any
+    environment{
+        name = 'Milan'
+    }
+    parameters{
+        string(name : 'password',defaultValue : 'John Smith', description : "jenkins paramters description")
+    }
+    
+    stages {
+        stage('Run CMD') {
+            steps {
+               sh'''
+               pwd
+               date
+               whoami
+               '''
+            }
+        }
+        
+        stage('Environment Variable') {
+            steps {
+                sh 'echo "${BUILD_ID}"'
+                sh 'echo "${BUILD_URL}"'
+                sh 'echo "${name}"'
+                
+            }
+        }
+        
+        stage('Build') {
+            steps {
+                echo 'Build'
+                sh 'ifconfig'
+            }
+        }
+        
+        stage('Build on Test') {
+            steps {
+                echo 'Build on Test'
+                
+            }
+        }
+        
+        stage('Parameter') {
+            steps {
+              sh 'echo "${name}"'
+              sh 'echo "${defaultValue}"'
+              sh 'echo "${description}"'
+              
+            }
+        }
+        
+        
+        stage('deploy Prod') {
+            steps {
+                echo 'Deploy on Prod'
+            }
+        }
+        
+        stage('Regression Testing') {
+            steps {
+                echo 'Regression Testing Done!'
+            }
+        }
+        
+    }
+    
+    
+    
+}
+
